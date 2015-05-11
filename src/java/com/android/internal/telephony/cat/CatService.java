@@ -866,19 +866,6 @@ public class CatService extends Handler implements AppInterface {
                 CatLog.d(this, "CAT Alpha message: msg.obj is null");
             }
             break;
-        case MSG_ID_TIMEOUT: // Should only be called for Samsung STK
-            if (mTimeoutDest == WAITING_SMS_RESULT) {
-                CatLog.d(this, "SMS SEND TIMEOUT");
-                if (CallControlResult.fromInt(mCallControlResultCode) ==
-                        CallControlResult.CALL_CONTROL_NOT_ALLOWED)
-                    sendTerminalResponse(mCurrntCmd.mCmdDet,
-                            ResultCode.USIM_CALL_CONTROL_PERMANENT, true, 1, null);
-                else
-                    sendTerminalResponse(mCurrntCmd.mCmdDet,
-                            ResultCode.TERMINAL_CRNTLY_UNABLE_TO_PROCESS, false, 0, null);
-                break;
-            }
-            break;
         case MSG_ID_SEND_SMS_RESULT: // Samsung STK SEND_SMS
             if (mContext.getResources().
                         getBoolean(com.android.internal.R.bool.config_samsung_stk)) {
